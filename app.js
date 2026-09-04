@@ -20,11 +20,18 @@ const K = { theme:"ielts_rel_theme", teacher:"ielts_rel_teacher", quiz:"ielts_re
 /* ---------- 2. Data ---------- */
 let DATA = null;
 async function loadData() {
-  // Offline-first: fetch local data.json (no network needed).
-  // Run via double-click + any static server recommended for file:// fetch rules.
-  const res = await fetch("data.json");
-  if (!res.ok) throw new Error("data.json not found");
-  DATA = await res.json();
+  // Offline-first with file:// support:
+  // - <script src="data.js"> sets window.IELTS_DATA (works on double-click, no fetch needed)
+  // - fetch("data.json") is tried first when served over http(s) so edits to data.json apply live
+  // - on file:// fetch throws (CORS) → fall back to embedded window.IELTS_DATA
+  try {
+    const res = await fetch("data.json");
+    if (res.ok) { DATA = await res.json(); }
+  } catch { /* file:// blocks fetch — use embedded fallback below */ }
+  if (!DATA && typeof window !== "undefined" && window.IELTS_DATA) {
+    DATA = window.IELTS_DATA;
+  }
+  if (!DATA) throw new Error("Failed to fetch");
   document.getElementById("app-subtitle").textContent =
     `${DATA.meta.topic} · Band ${DATA.meta.targetBand}`;
 }
