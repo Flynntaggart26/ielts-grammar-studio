@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IELTS Academic Grammar Studio — Relative Clauses</title>
+<meta name="description" content="Offline-first IELTS Academic grammar system: Complex Sentences with Relative Clauses. Band 7.0–8.0+." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ===== Top bar ===== -->
+<header class="topbar" role="banner">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-badge" aria-hidden="true">IELTS</span>
+      <div>
+        <h1 id="app-title">Grammar Studio</h1>
+        <p id="app-subtitle" class="subtitle">Complex Sentences with Relative Clauses · Band 7.0–8.0+</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button id="btn-theme" class="btn btn-ghost" aria-pressed="false" title="Toggle dark / light mode">🌙 Dark</button>
+      <button id="btn-teacher" class="btn btn-ghost" aria-pressed="false" title="Teacher / projection mode: large text, high contrast">📽 Teacher</button>
+      <button id="btn-print" class="btn btn-primary" title="Print one-page revision summary">🖨 Print summary</button>
+    </div>
+  </div>
+  <!-- Tab navigation: keyboard accessible -->
+  <nav class="tabs" role="tablist" aria-label="Study sections">
+    <button role="tab" aria-selected="true" data-tab="overview" id="tab-overview" class="tab active">1 · Overview</button>
+    <button role="tab" aria-selected="false" data-tab="quiz" id="tab-quiz" class="tab">2 · Diagnostic Quiz</button>
+    <button role="tab" aria-selected="false" data-tab="practice" id="tab-practice" class="tab">3 · Practice</button>
+    <button role="tab" aria-selected="false" data-tab="exercises" id="tab-exercises" class="tab">4 · Exercises</button>
+    <button role="tab" aria-selected="false" data-tab="track" id="tab-track" class="tab">5 · Band Tracker</button>
+    <button role="tab" aria-selected="false" data-tab="ref" id="tab-ref" class="tab">6 · Reference</button>
+  </nav>
+  <div class="progress-strip" aria-hidden="true"><div id="progress-fill"></div></div>
+</header>
+
+<main id="main" class="container">
+
+  <!-- ===== 1. OVERVIEW ===== -->
+  <section id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" class="panel active">
+    <div class="card hero">
+      <h2>Grammar Overview &amp; IELTS Band Alignment</h2>
+      <p id="overview-intro" class="lead"></p>
+      <div class="legend">
+        <span><i class="dot green"></i> Defining rule</span>
+        <span><i class="dot blue"></i> Non-defining</span>
+        <span><i class="dot amber"></i> Warning</span>
+        <span><i class="dot purple"></i> Band 7+ form</span>
+        <span><i class="dot red"></i> Frequent error</span>
+      </div>
+    </div>
+
+    <h3>Band 6.5 vs 7.5 vs 8.5 — what changes?</h3>
+    <div id="band-table" class="band-grid"></div>
+
+    <h3>Form → Function → Accuracy</h3>
+    <div class="table-wrap"><table id="form-table" class="exam-table">
+      <thead><tr><th>Form</th><th>Function (IELTS use)</th><th>Accuracy rule</th><th>Task 1 / Task 2 example</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+
+    <h3>Color-coded usage rules</h3>
+    <div id="rules-list" class="rules"></div>
+  </section>
+
+  <!-- ===== 2. QUIZ ===== -->
+  <section id="panel-quiz" role="tabpanel" aria-labelledby="tab-quiz" class="panel" hidden>
+    <div class="card">
+      <h2>IELTS Diagnostic Quiz <span id="quiz-count" class="pill"></span></h2>
+      <p class="muted">14 items · MCQ · gap-fill · error correction · transformation. Mirrors Task 1 / Task 2 / Speaking patterns. Immediate band-level feedback.</p>
+      <div class="quiz-toolbar">
+        <button id="btn-quiz-reset" class="btn btn-ghost">↺ Reset quiz</button>
+        <span id="quiz-score" class="pill pill-score" aria-live="polite">Score: —</span>
+        <span id="quiz-band" class="pill" aria-live="polite">Est. band: —</span>
+      </div>
+      <ol id="quiz-list" class="quiz-list"></ol>
+      <div class="card-footer">
+        <p class="muted small">Mistakes auto-save to your <strong>Personal Error Log</strong> (Band Tracker tab). Re-take after studying to measure movement.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. PRACTICE ===== -->
+  <section id="panel-practice" role="tabpanel" aria-labelledby="tab-practice" class="panel" hidden>
+    <h2>Scaffolded IELTS Practice</h2>
+
+    <div class="card">
+      <h3>Level 1 · Guided gap-fill <span class="pill">with word bank + hints</span></h3>
+      <div id="l1-list" class="stack"></div>
+    </div>
+
+    <div class="card">
+      <h3>Level 2 · Controlled writing (Task 1)</h3>
+      <p class="muted">Describe the visual using the target grammar. Word counter + self-check included. Drafts auto-save.</p>
+      <div id="l2-list" class="stack"></div>
+    </div>
+
+    <div class="card">
+      <h3>Level 3 · Free production (Task 2 paragraph)</h3>
+      <div id="l3-box"></div>
+      <label class="field-label" for="l3-text">Your paragraph (aim 90–110 words, ≥2 relative clauses):</label>
+      <textarea id="l3-text" rows="7" placeholder="Write here… e.g. Funding public transport, which reduces emissions, is often debated…"></textarea>
+      <div class="row">
+        <span class="pill" id="l3-count">0 words</span>
+        <span class="pill" id="l3-clause-count">0 relative clauses detected</span>
+        <button id="l3-clear" class="btn btn-ghost">Clear</button>
+      </div>
+      <details class="hint"><summary>Self-editing checklist</summary><ul id="l3-checklist"></ul></details>
+    </div>
+
+    <div class="card">
+      <h3>Speaking Practice · Parts 2 &amp; 3</h3>
+      <p class="muted">Tap a card to reveal the model + Band-7+ upgrade. Practise aloud, then record your confidence.</p>
+      <div id="speaking-list" class="speak-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== 4. EXERCISES ===== -->
+  <section id="panel-exercises" role="tabpanel" aria-labelledby="tab-exercises" class="panel" hidden>
+    <h2>Interactive Exercises</h2>
+    <div class="card">
+      <h3>A · Sentence transformation <span class="pill">simple → complex</span></h3>
+      <p class="muted">Type the combined sentence. Click “Show model” to compare. Any answer containing the key clause is accepted.</p>
+      <div id="trans-list" class="stack"></div>
+    </div>
+    <div class="card">
+      <h3>B · Error detection &amp; correction <span class="pill">Task 1 &amp; Task 2 essays</span></h3>
+      <div id="err-list" class="stack"></div>
+    </div>
+    <div class="card">
+      <h3>C · Controlled → freer production <span class="pill">word count tracking</span></h3>
+      <label class="field-label" for="free-text">Prompt: “Describe a trend in your country which concerns you, and explain causes in places where it is worst.” (80–120 words)</label>
+      <textarea id="free-text" rows="6" placeholder="Write 80–120 words using at least 3 relative clauses…"></textarea>
+      <div class="row"><span class="pill" id="free-count">0 words · target 80–120</span><button id="free-clear" class="btn btn-ghost">Clear</button></div>
+    </div>
+  </section>
+
+  <!-- ===== 5. TRACKER ===== -->
+  <section id="panel-track" role="tabpanel" aria-labelledby="tab-track" class="panel" hidden>
+    <h2>Self-Assessment &amp; Band Tracking</h2>
+    <div class="track-grid">
+      <div class="card">
+        <h3>Confidence per rule (1–5)</h3>
+        <p class="muted small">1 = unsure · 5 = exam-ready. Mapped to bands below each slider.</p>
+        <div id="conf-list" class="stack"></div>
+      </div>
+      <div class="card">
+        <h3>Progress dashboard</h3>
+        <div class="dash">
+          <div class="dash-big"><span id="dash-band">—</span><small>estimated GRA band</small></div>
+          <ul class="dash-stats">
+            <li>Quiz: <strong id="dash-quiz">—</strong></li>
+            <li>Avg confidence: <strong id="dash-conf">—</strong></li>
+            <li>Checklist: <strong id="dash-check">0/7</strong></li>
+            <li>Errors logged: <strong id="dash-err">0</strong></li>
+          </ul>
+        </div>
+        <h4>Band 7+ Checklist</h4>
+        <div id="band-checklist" class="stack"></div>
+        <button id="btn-wipe" class="btn btn-ghost">Erase all saved progress</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Personal error log <span class="pill">auto-populated from quiz</span></h3>
+      <div class="table-wrap"><table class="exam-table"><thead><tr><th>Item</th><th>Your answer</th><th>Correct</th><th>Band impact</th><th></th></tr></thead><tbody id="errlog-body"></tbody></table></div>
+      <label class="field-label" for="note-text">My notes (auto-saved):</label>
+      <textarea id="note-text" rows="4" placeholder="e.g. I keep using THAT after commas → slow down and re-read overview sentences…"></textarea>
+    </div>
+  </section>
+
+  <!-- ===== 6. REFERENCE ===== -->
+  <section id="panel-ref" role="tabpanel" aria-labelledby="tab-ref" class="panel" hidden>
+    <h2>Reference &amp; Quick Tools</h2>
+    <div class="card" id="print-summary">
+      <h3>📌 One-page summary (print-optimised)</h3>
+      <ul id="summary-list" class="check-list"></ul>
+    </div>
+    <div class="card">
+      <button id="colloc-toggle" class="btn btn-ghost" aria-expanded="true">▾ Quick reference card — high-frequency academic collocations</button>
+      <div id="colloc-body" class="chips"></div>
+    </div>
+    <div class="card">
+      <h3>⚠ Common IELTS pitfalls</h3>
+      <div id="pit-list" class="stack"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p><strong>IELTS Academic Grammar Studio</strong> · 100% offline · Vanilla HTML/CSS/JS · Progress stored in your browser (localStorage) · Edit <code>data.json</code> to retarget topics.</p>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>
